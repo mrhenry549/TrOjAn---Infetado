@@ -31,7 +31,8 @@ public class Main {
                 SendPic s = new SendPic();
             } else if (msg.equals(file)) {
                 SendArray sa = new SendArray();
-
+                RecieveNum rn = new RecieveNum();
+                SendNome sn = new SendNome();
                 SendFile sf = new SendFile();
             }
 
