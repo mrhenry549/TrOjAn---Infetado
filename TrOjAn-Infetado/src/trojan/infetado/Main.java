@@ -14,16 +14,12 @@ public class Main {
         final String off = "off";
         final String file = "filelist";
 
-        ServerSocket servsock = new ServerSocket(80);
-        Socket sock = servsock.accept();
-
-        RecieveCom cc;
-        cc = new RecieveCom();
+        RecieveCom cc = new RecieveCom();
 
         String msg = "on";
         do {
 
-            msg = cc.getRead();
+            msg = cc.com;
 
             if (msg.equals(pic)) {
                 TakePicture aut = new TakePicture();

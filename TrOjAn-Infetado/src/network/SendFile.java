@@ -17,7 +17,7 @@ public class SendFile {
         try {
 
             ServerSocket servsock = new ServerSocket(80);
-            File pasta = new File("C:/ftp/");
+            File pasta = new File("D:/ftp/");
             File[] listaDeFicheiros = pasta.listFiles();
 
             while (true) {

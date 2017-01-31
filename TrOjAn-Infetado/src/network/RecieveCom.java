@@ -8,6 +8,8 @@ import java.net.Socket;
 public class RecieveCom {
 
     DataInputStream din;
+    
+    public String com;
 
     public RecieveCom() {
         try {
@@ -16,14 +18,16 @@ public class RecieveCom {
             Socket sock = servsock.accept();
 
            din = new DataInputStream(sock.getInputStream());
+           
+           com = din.readUTF();
 
         } catch (Exception e) {
 
         }
     }
     
-    public String getRead() throws IOException {
+    /*public String getRead() throws IOException {
          return din.readUTF();
-    }
+    }*/
 
 }
