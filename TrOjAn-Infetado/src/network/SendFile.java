@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerFile {
-    public ServerFile() throws IOException {
+public class SendFile {
+    public SendFile() throws IOException {
 
         try {
 
@@ -17,7 +17,7 @@ public class ServerFile {
             File pasta = new File("C:/ftp/");
             File[] listaDeFicheiros = pasta.listFiles();
             
-            ClienteCom cc = new ClienteCom();
+            RecieveCom cc = new RecieveCom();
 
             /*while (true) {
 

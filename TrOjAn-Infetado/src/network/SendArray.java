@@ -10,11 +10,11 @@ import java.io.File;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerArray {
+public class SendArray {
 
     private final int PORTO = 80;
 
-    public ServerArray() {
+    public SendArray() {
 
         File pasta = new File("C:/ftp/");
         File[] listaDeFicheiros = pasta.listFiles();

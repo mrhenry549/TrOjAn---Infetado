@@ -3,9 +3,9 @@ package network;
 import java.io.*;
 import java.net.*;
 
-public class ServerPic{
+public class SendPic{
 
-    public ServerPic() throws IOException {
+    public SendPic() throws IOException {
 
         try {
             ServerSocket servsock = new ServerSocket(80);

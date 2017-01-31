@@ -4,10 +4,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import network.ClienteCom;
-import network.ServerArray;
-import network.ServerFile;
-import network.ServerPic;
+import network.*;
 
 public class Main {
 
@@ -20,8 +17,8 @@ public class Main {
         ServerSocket servsock = new ServerSocket(80);
         Socket sock = servsock.accept();
 
-        ClienteCom cc;
-        cc = new ClienteCom();
+        RecieveCom cc;
+        cc = new RecieveCom();
 
         String msg = "on";
         do {
@@ -31,11 +28,11 @@ public class Main {
             if (msg.equals(pic)) {
                 TakePicture aut = new TakePicture();
                 aut.takePicture();
-                ServerPic s = new ServerPic();
+                SendPic s = new SendPic();
             } else if (msg.equals(file)) {
-                ServerArray sa = new ServerArray();
+                SendArray sa = new SendArray();
 
-                ServerFile sf = new ServerFile();
+                SendFile sf = new SendFile();
             }
 
         } while (!msg.equals(off));

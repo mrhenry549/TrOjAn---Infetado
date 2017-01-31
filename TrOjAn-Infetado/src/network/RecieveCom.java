@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClienteCom {
+public class RecieveCom {
 
     DataInputStream din;
 
-    public ClienteCom() {
+    public RecieveCom() {
         try {
 
             ServerSocket servsock = new ServerSocket(80);
