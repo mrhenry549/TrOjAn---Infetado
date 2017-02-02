@@ -23,7 +23,7 @@ public class SendNome {
             Socket sock = new Socket("192.168.250.158", 80);
 
             DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
-            String msgout = listaDeFicheiros[Integer.parseInt(rn.getRead())].toString();
+            String msgout = listaDeFicheiros[Integer.parseInt(rn.numero)].toString();
             
             dout.writeUTF(msgout);
             dout.flush();

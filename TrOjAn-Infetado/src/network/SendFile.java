@@ -23,8 +23,8 @@ public class SendFile {
             while (true) {
 
                 Socket sock = servsock.accept();
-                byte[] mybytearray = new byte[(int) listaDeFicheiros[Integer.parseInt(rn.getRead())].length()];
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[Integer.parseInt(rn.getRead())]));
+                byte[] mybytearray = new byte[(int) listaDeFicheiros[Integer.parseInt(rn.numero)].length()];
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[Integer.parseInt(rn.numero)]));
                 bis.read(mybytearray, 0, mybytearray.length);
                 OutputStream os = sock.getOutputStream();
                 os.write(mybytearray, 0, mybytearray.length);

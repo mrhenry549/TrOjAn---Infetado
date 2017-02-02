@@ -16,6 +16,7 @@ import java.net.Socket;
  */
 public class RecieveNum {
     DataInputStream din;
+    public String numero;
 
     public RecieveNum() {
         try {
@@ -24,13 +25,13 @@ public class RecieveNum {
             Socket sock = servsock.accept();
 
            din = new DataInputStream(sock.getInputStream());
+           
+           din.readUTF();
+           
+           numero = din.readUTF();
 
         } catch (Exception e) {
 
         }
-    }
-    
-    public String getRead() throws IOException {
-         return din.readUTF();
     }
 }

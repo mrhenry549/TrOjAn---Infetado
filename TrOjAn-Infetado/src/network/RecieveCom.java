@@ -25,9 +25,5 @@ public class RecieveCom {
 
         }
     }
-    
-    /*public String getRead() throws IOException {
-         return din.readUTF();
-    }*/
 
 }
