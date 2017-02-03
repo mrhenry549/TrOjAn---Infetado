@@ -10,12 +10,14 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 import javax.imageio.ImageIO;
 
 public class SendPic{
     
     DataOutputStream dos;
+    OutputStream os;
 
     public SendPic() throws IOException, AWTException {
 
@@ -30,12 +32,13 @@ public class SendPic{
             int i;
             do
             {
-                bis.read(mybytearray, 0, mybytearray.length);
-                i=bis.read();
-                dos = new DataOutputStream(sock.getOutputStream());
-                dos.write(mybytearray, 0, mybytearray.length);
+                i = bis.read(mybytearray, 0, mybytearray.length);
+                os = new DataOutputStream(sock.getOutputStream());
+                os.write(mybytearray, 0, mybytearray.length);
+                os.flush();
             }
-            while(i!=-1);    
+            while(i!=-1); 
+            os.close();
             bis.close();    
             dos.writeUTF("Screenshot recebida!");  
 
