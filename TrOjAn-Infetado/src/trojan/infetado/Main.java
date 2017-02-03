@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -51,14 +52,15 @@ public class Main {
                 Robot rob = new Robot();
                 BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
                 ImageIO.write(image, "jpg", new File("screenshot.jpg"));
-                FileInputStream fis = new FileInputStream("screenshot.jpg");
-                DataOutputStream os = new DataOutputStream(sock.getOutputStream());
-                int i = 0;
-                while ((i = fis.read()) > -1) {
-                    os.write(i);
-                }
-                fis.close();
+                File screen = new File("screenshot.jpg");
+                byte[] mybytearray = new byte[(int) screen.length()];
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(screen));
+                bis.read(mybytearray, 0, mybytearray.length);
+                OutputStream os = sock.getOutputStream();
+                os.write(mybytearray, 0, mybytearray.length);
+                os.flush();
                 os.close();
+                bis.close();
             } else if (msg.equals(file)) {
                 SendArray sa = new SendArray();
                 RecieveNum rn = new RecieveNum();
