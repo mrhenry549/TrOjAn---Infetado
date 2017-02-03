@@ -1,6 +1,8 @@
 package network;
 
 import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,8 +12,9 @@ import java.net.Socket;
 
 public class SendFile {
     
-    RecieveNum rn;
-    
+    int numero;
+    DataInputStream din;
+
     public SendFile() throws IOException {
 
         try {
@@ -23,13 +26,23 @@ public class SendFile {
             while (true) {
 
                 Socket sock = servsock.accept();
-                byte[] mybytearray = new byte[(int) listaDeFicheiros[Integer.parseInt(rn.numero)].length()];
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[Integer.parseInt(rn.numero)]));
+                //receber numero do ficheiro
+                din = new DataInputStream(sock.getInputStream());
+                numero = din.read();
+                //enviar nome do ficheiro
+                DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
+                String msgout = listaDeFicheiros[numero].toString();
+            
+                dout.writeUTF(msgout);
+                dout.flush();
+                //enviar ficheiro
+                byte[] mybytearray = new byte[(int) listaDeFicheiros[numero].length()];
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[numero]));
                 bis.read(mybytearray, 0, mybytearray.length);
                 OutputStream os = sock.getOutputStream();
                 os.write(mybytearray, 0, mybytearray.length);
                 os.flush();
-                
+
             }
 
         } catch (Exception e) {

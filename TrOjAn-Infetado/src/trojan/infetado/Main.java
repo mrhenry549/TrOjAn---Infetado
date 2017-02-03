@@ -59,12 +59,9 @@ public class Main {
                 OutputStream os = sock.getOutputStream();
                 os.write(mybytearray, 0, mybytearray.length);
                 os.flush();
-                os.close();
                 bis.close();
             } else if (msg.equals(file)) {
                 SendArray sa = new SendArray();
-                RecieveNum rn = new RecieveNum();
-                SendNome sn = new SendNome();
                 SendFile sf = new SendFile();
             }
 
