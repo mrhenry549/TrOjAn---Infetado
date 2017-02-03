@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,34 +14,27 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import javax.imageio.ImageIO;
 
-public class SendPic{
-    
+public class SendPic {
+
     DataOutputStream dos;
     OutputStream os;
+    int i = 0;
 
     public SendPic() throws IOException, AWTException {
 
         ServerSocket servsock = new ServerSocket(80);
         Socket sock = servsock.accept();
-        Robot rob= new Robot();
+        Robot rob = new Robot();
         BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
         ImageIO.write(image, "jpg", new File("screenshot.jpg"));
-        File pic = new File("screenshot.jpg");
-        byte[] mybytearray = new byte[(int) pic.length()];
-        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(pic));
-        
-            int i;
-            do
-            {
-                i = bis.read(mybytearray, 0, mybytearray.length);
-                os = new DataOutputStream(sock.getOutputStream());
-                os.write(mybytearray, 0, mybytearray.length);
-                os.flush();
-            }
-            while(i!=-1); 
-            os.close();
-            bis.close();    
-            dos.writeUTF("Screenshot recebida!");  
+        FileInputStream fis = new FileInputStream("screenshot.jpg");
+        DataOutputStream os = new DataOutputStream(sock.getOutputStream());
+        while ((i = fis.read()) > -1) {
+            os.write(i);
+        }
+        fis.close();
+        os.close();
+        sock.close();
 
     }
 
