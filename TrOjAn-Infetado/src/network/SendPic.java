@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import javax.imageio.ImageIO;
 
@@ -21,7 +22,8 @@ public class SendPic{
 
     public SendPic() throws IOException, AWTException {
 
-        Socket sock = new Socket("192.168.250.158", 80);
+        ServerSocket servsock = new ServerSocket(80);
+        Socket sock = servsock.accept();
         Robot rob= new Robot();
         BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
         ImageIO.write(image, "jpg", new File("screenshot.jpg"));

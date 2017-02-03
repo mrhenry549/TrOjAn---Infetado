@@ -7,6 +7,7 @@ package network;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 
@@ -20,7 +21,8 @@ public class SendNome {
         File[] listaDeFicheiros = pasta.listFiles();
 
         try {
-            Socket sock = new Socket("192.168.250.158", 80);
+            ServerSocket servsock = new ServerSocket(80);
+            Socket sock = servsock.accept();
 
             DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
             String msgout = listaDeFicheiros[Integer.parseInt(rn.numero)].toString();
