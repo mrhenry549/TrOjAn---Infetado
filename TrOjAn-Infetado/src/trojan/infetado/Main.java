@@ -31,10 +31,6 @@ public class Main {
         ServerSocket servsock = new ServerSocket(80);
         Socket sock = servsock.accept();
 
-        Socket socket = null;
-        InputStream in = null;
-        OutputStream out = null;
-
         din = new DataInputStream(sock.getInputStream());
 
         String msg = "on";
@@ -51,8 +47,8 @@ public class Main {
                 BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
                 ImageIO.write(image, "jpg", new File("screenshot.jpg"));
                 
-                in = socket.getInputStream();
-                out = new FileOutputStream("screenshot.jpg");
+                InputStream in = sock.getInputStream();
+                OutputStream out = new FileOutputStream("screenshot.jpg");
 
                 byte[] bytes = new byte[16*1024];
 
