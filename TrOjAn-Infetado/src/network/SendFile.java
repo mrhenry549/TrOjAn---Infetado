@@ -29,12 +29,14 @@ public class SendFile {
                 //receber numero do ficheiro
                 din = new DataInputStream(sock.getInputStream());
                 numero = din.read();
+                
                 //enviar nome do ficheiro
                 DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
                 String msgout = listaDeFicheiros[numero].toString();
             
                 dout.writeUTF(msgout);
                 dout.flush();
+                
                 //enviar ficheiro
                 byte[] mybytearray = new byte[(int) listaDeFicheiros[numero].length()];
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[numero]));
