@@ -9,7 +9,9 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,10 +27,13 @@ public class Main {
         final String file = "filelist";
 
         DataInputStream din;
-        String com;
 
         ServerSocket servsock = new ServerSocket(80);
         Socket sock = servsock.accept();
+
+        Socket socket = null;
+        InputStream in = null;
+        OutputStream out = null;
 
         din = new DataInputStream(sock.getInputStream());
 
@@ -46,14 +51,15 @@ public class Main {
                 BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
                 ImageIO.write(image, "jpg", new File("screenshot.jpg"));
                 
-                File screen = new File("screenshot.jpg");
-                byte[] mybytearray = new byte[(int) screen.length()];
-                fis = new FileInputStream(screen);
-                bis = new BufferedInputStream(fis);
-                bis.read(mybytearray, 0, mybytearray.length);
-                os = sock.getOutputStream();
-                os.write(mybytearray, 0, mybytearray.length);
-                os.flush();
+                in = socket.getInputStream();
+                out = new FileOutputStream("screenshot.jpg");
+
+                byte[] bytes = new byte[16*1024];
+
+                int count;
+                while ((count = in.read(bytes)) > 0) {
+                    out.write(bytes, 0, count);
+                }
                 
             } else if (msg.equals(file)) {
                 SendArray sa = new SendArray();
