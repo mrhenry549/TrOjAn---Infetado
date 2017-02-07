@@ -13,31 +13,21 @@ public class SendArray {
 
         File pasta = new File("C:/ftp/");
         File[] listaDeFicheiros = pasta.listFiles();
-
-        String result = "";
-        int i = 0;
-
-        if (listaDeFicheiros.length > 0) {
-            StringBuilder sb = new StringBuilder();
-
-            for (File file : listaDeFicheiros) {
-                if (file.isFile()) {
-                    sb.append(i).append(". ").append(file).append(",");
-                    i++;
-                }
-            }
-
-            result = sb.deleteCharAt(sb.length() - 1).toString();
-        }
         
         try {
             ServerSocket ssoc = new ServerSocket(PORTO);
             Socket sock = ssoc.accept();
+            
+            int i = 0;
 
             DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
 
-            dout.writeUTF(result);
-            dout.flush();
+            for (File file : listaDeFicheiros) {
+                if (file.isFile()) {
+                    dout.writeUTF(i+". "+file);
+                    i++;
+                }
+            }
 
         } catch (Exception e) {
 
