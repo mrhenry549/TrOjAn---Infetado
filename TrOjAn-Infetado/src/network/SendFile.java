@@ -38,12 +38,12 @@ public class SendFile {
                 dout.flush();
                 
                 //enviar ficheiro
-                byte[] mybytearray = new byte[(int) listaDeFicheiros[numero].length()];
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(listaDeFicheiros[numero]));
-                bis.read(mybytearray, 0, mybytearray.length);
-                OutputStream os = sock.getOutputStream();
-                os.write(mybytearray, 0, mybytearray.length);
-                os.flush();
+                FileInputStream fis = new FileInputStream(listaDeFicheiros[numero]);
+                byte[] buffer = new byte[4096];
+
+                while (fis.read(buffer) > 0) {
+                    dout.write(buffer);
+                }
 
             }
 
